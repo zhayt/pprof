@@ -29,6 +29,26 @@ func bruteForceRecursively(hash string, passwd string) string {
 	return ""
 }
 
+func bruteForceLinear(hash string, passwd string) string {
+	stack := []string{""}
+
+	for len(stack) > 0 {
+		passwd := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+
+		if compareHash(hash, getMD5Hash(passwd)) {
+			return passwd
+		}
+
+		if len(passwd) < maxPasswordLength {
+			for i := len(chars) - 1; i >= 0; i-- {
+				stack = append(stack, passwd+chars[i])
+			}
+		}
+	}
+	return ""
+}
+
 func getMD5Hash(text string) string {
 	hasher := md5.New()
 	hasher.Write([]byte(text))
