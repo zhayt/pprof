@@ -11,27 +11,32 @@ const maxPasswordLength = 5
 var chars = []string{"a", "b", "c", "d", "e", "f", "g"}
 
 func BruteForcePassword(hash string) string {
-	return bruteForceLinear(hash)
+	return bruteForceLinearReusingSpace(hash)
 }
 
-func bruteForceLinear(hash string) string {
-	stack := []string{""}
+func bruteForceLinearReusingSpace(hash string) string {
+	buff := make([]byte, maxPasswordLength)
+	state := make([]int, maxPasswordLength)
 
-	for len(stack) > 0 {
-		length := len(stack)
-		for _, passwd := range stack {
-			if compareHash(hash, getMD5Hash(passwd)) {
-				return passwd
-			}
-
-			if len(passwd) < maxPasswordLength {
-				for i := 0; i < len(chars); i++ {
-					stack = append(stack, passwd+chars[i])
-				}
-			}
+	var pos int
+	for pos != -1 {
+		if pos == maxPasswordLength {
+			pos--
+			continue
 		}
-		stack = stack[length:]
+		if state[pos] == len(chars)-1 {
+			state[pos] = 0
+			pos--
+			continue
+		}
+		buff[pos] = chars[state[pos]][0]
+		state[pos]++
+		pos++
+		if compareHash(hash, getMD5Hash(string(buff[:pos]))) {
+			return string(buff[:pos])
+		}
 	}
+
 	return ""
 }
 
