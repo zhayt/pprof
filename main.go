@@ -2,7 +2,6 @@ package main
 
 import (
 	"crypto/md5"
-	"encoding/hex"
 	"fmt"
 )
 
@@ -10,11 +9,11 @@ const maxPasswordLength = 5
 
 var chars = []string{"a", "b", "c", "d", "e", "f", "g"}
 
-func BruteForcePassword(hash string) string {
+func BruteForcePassword(hash []byte) string {
 	return bruteForceLinearReusingSpace(hash)
 }
 
-func bruteForceLinearReusingSpace(hash string) string {
+func bruteForceLinearReusingSpace(hash []byte) string {
 	buff := make([]byte, maxPasswordLength)
 	state := make([]int, maxPasswordLength)
 
@@ -40,14 +39,22 @@ func bruteForceLinearReusingSpace(hash string) string {
 	return ""
 }
 
-func getMD5Hash(text string) string {
+func getMD5Hash(text string) []byte {
 	hasher := md5.New()
 	hasher.Write([]byte(text))
-	return hex.EncodeToString(hasher.Sum(nil))
+	return hasher.Sum(nil)
 }
 
-func compareHash(a, b string) bool {
-	return a == b
+func compareHash(a, b []byte) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	for i := range a {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+	return true
 }
 
 func main() {
