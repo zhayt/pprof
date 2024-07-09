@@ -10,12 +10,12 @@ const maxPasswordLength = 5
 
 var chars = []string{"a", "b", "c", "d", "e", "f", "g"}
 
-func BruteForcePassword(hash string) string {
-	return bruteForceLinearReusingSpace(hash, "")
+func BruteForcePassword(hash []byte) string {
+	return bruteForceRecursively(hash, "")
 }
 
-func bruteForceRecursively(hash string, passwd string) string {
-	if compareHash(hash, getMD5Hash(passwd)) {
+func bruteForceRecursively(hash []byte, passwd string) string {
+	if compareSliceOfBitesHash(hash, getMD5HashAsSliceOfBytes(passwd)) {
 		return passwd
 	}
 	for i := 0; i < len(chars); i++ {
@@ -29,14 +29,14 @@ func bruteForceRecursively(hash string, passwd string) string {
 	return ""
 }
 
-func bruteForceLinear(hash string, passwd string) string {
+func bruteForceLinear(hash []byte, passwd string) string {
 	stack := []string{""}
 
 	for len(stack) > 0 {
 		passwd := stack[len(stack)-1]
 		stack = stack[:len(stack)-1]
 
-		if compareHash(hash, getMD5Hash(passwd)) {
+		if compareSliceOfBitesHash(hash, getMD5HashAsSliceOfBytes(passwd)) {
 			return passwd
 		}
 
@@ -49,7 +49,7 @@ func bruteForceLinear(hash string, passwd string) string {
 	return ""
 }
 
-func bruteForceLinearReusingSpace(hash string, passwd string) string {
+func bruteForceLinearReusingSpace(hash []byte, passwd string) string {
 	buff := make([]byte, maxPasswordLength)
 	state := make([]int, maxPasswordLength)
 
@@ -67,7 +67,7 @@ func bruteForceLinearReusingSpace(hash string, passwd string) string {
 		buff[pos] = chars[state[pos]][0]
 		state[pos]++
 		pos++
-		if hash == getMD5Hash(string(buff[:pos])) {
+		if compareSliceOfBitesHash(hash, getMD5HashAsSliceOfBytes(string(buff[:pos]))) {
 			return string(buff[:pos])
 		}
 	}
@@ -81,14 +81,32 @@ func getMD5Hash(text string) string {
 	return hex.EncodeToString(hasher.Sum(nil))
 }
 
+func getMD5HashAsSliceOfBytes(text string) []byte {
+	hasher := md5.New()
+	hasher.Write([]byte(text))
+	return hasher.Sum(nil)
+}
+
 func compareHash(a, b string) bool {
 	return a == b
+}
+
+func compareSliceOfBitesHash(a, b []byte) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	for i := 0; i < len(a); i++ {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+	return true
 }
 
 func main() {
 	passwords := []string{"a", "b", "c"}
 	for i := 0; i < len(passwords); i++ {
-		hash := getMD5Hash(passwords[i])
+		hash := getMD5HashAsSliceOfBytes(passwords[i])
 		if passwd := BruteForcePassword(hash); passwd == passwords[i] {
 			fmt.Printf("Find password: %s - %s\n", passwords[i], passwd)
 		} else {
