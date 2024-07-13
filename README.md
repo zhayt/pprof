@@ -661,9 +661,9 @@ Go имеет мощные встроенные инструменты для п
 
 # Useful links
 
-- https://www.youtube.com/watch?v=N3PWzBeLX2M&ab_channel=PrashantV
-- https://www.youtube.com/watch?v=0i1nO9gwACY&ab_channel=BadooTech
-- https://youtu.be/OEUIzg-IeyM?si=AohKmH0VTyJ7M-wm
+- ["Profiling and Optimizing Go", Prashant Varanasi - Ex Uber, Google, Microsoft Engineer](https://www.youtube.com/watch?v=N3PWzBeLX2M&ab_channel=PrashantV)
+- ["Оптимизация программ на Go", Марко Кевац - Badoo](https://www.youtube.com/watch?v=0i1nO9gwACY&ab_channel=BadooTech)
+- [Go за гранью скорости: pprof на проде | avito.code](https://youtu.be/OEUIzg-IeyM?si=AohKmH0VTyJ7M-wm)
 
 ## PS
 
