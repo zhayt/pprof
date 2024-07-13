@@ -655,9 +655,15 @@ func bruteForceLinearReusingSpace(hash []byte) string {
 
 Конечно, вот исправленный текст с исправлениями правописания и грамматики:
 
-## Conclusion
+# Conclusion
 
 Go имеет мощные встроенные инструменты для профилирования, которые помогают нам найти узкие места в нашей программе. Пишите оптимальный код, если нужно оптимизировать, тогда оптимизируйте с умом, исходя из профилирования.
+
+# Useful links
+
+- https://www.youtube.com/watch?v=N3PWzBeLX2M&ab_channel=PrashantV
+- https://www.youtube.com/watch?v=0i1nO9gwACY&ab_channel=BadooTech
+- https://youtu.be/OEUIzg-IeyM?si=AohKmH0VTyJ7M-wm
 
 ## PS
 
