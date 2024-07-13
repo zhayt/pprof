@@ -10,32 +10,42 @@ const maxPasswordLength = 5
 var chars = []string{"a", "b", "c", "d", "e", "f", "g"}
 
 func BruteForcePassword(hash []byte) string {
-	return bruteForceLinearReusingSpace(hash)
+	return bruteForceLinear(hash)
 }
 
-func bruteForceLinearReusingSpace(hash []byte) string {
-	buff := make([]byte, maxPasswordLength)
-	state := make([]int, maxPasswordLength)
-
-	var pos int
-	for pos != -1 {
-		if pos == maxPasswordLength {
-			pos--
-			continue
+func bruteForceRecursively(hash []byte, passwd string) string {
+	if compareHash(hash, getMD5Hash(passwd)) {
+		return passwd
+	}
+	for i := 0; i < len(chars); i++ {
+		if len(passwd) == maxPasswordLength {
+			return ""
 		}
-		if state[pos] == len(chars)-1 {
-			state[pos] = 0
-			pos--
-			continue
-		}
-		buff[pos] = chars[state[pos]][0]
-		state[pos]++
-		pos++
-		if compareHash(hash, getMD5Hash(string(buff[:pos]))) {
-			return string(buff[:pos])
+		if str := bruteForceRecursively(hash, passwd+chars[i]); str != "" {
+			return str
 		}
 	}
+	return ""
+}
 
+func bruteForceLinear(hash []byte) string {
+	stack := []string{""}
+
+	for len(stack) > 0 {
+		length := len(stack)
+		for _, passwd := range stack {
+			if compareHash(hash, getMD5Hash(passwd)) {
+				return passwd
+			}
+
+			if len(passwd) < maxPasswordLength {
+				for i := 0; i < len(chars); i++ {
+					stack = append(stack, passwd+chars[i])
+				}
+			}
+		}
+		stack = stack[length:]
+	}
 	return ""
 }
 
