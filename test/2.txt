@@ -1,0 +1,21 @@
+goos: linux
+goarch: amd64
+pkg: github.com/zhayt/pprof
+cpu: AMD Ryzen 5 4600H with Radeon Graphics         
+BenchmarkBruteForcePassword/input_a-12         	 1739305	       776.9 ns/op	      48 B/op	       3 allocs/op
+BenchmarkBruteForcePassword/input_a-12         	 1439918	       902.1 ns/op	      48 B/op	       3 allocs/op
+BenchmarkBruteForcePassword/input_a-12         	 1525330	       910.6 ns/op	      48 B/op	       3 allocs/op
+BenchmarkBruteForcePassword/input_a-12         	 1351285	       890.7 ns/op	      48 B/op	       3 allocs/op
+BenchmarkBruteForcePassword/input_a-12         	 1258226	       843.4 ns/op	      48 B/op	       3 allocs/op
+BenchmarkBruteForcePassword/input_ba-12        	    1298	   1240868 ns/op	   61401 B/op	    5606 allocs/op
+BenchmarkBruteForcePassword/input_ba-12        	     841	   1205153 ns/op	   61354 B/op	    5606 allocs/op
+BenchmarkBruteForcePassword/input_ba-12        	    1575	   1012448 ns/op	   61359 B/op	    5606 allocs/op
+BenchmarkBruteForcePassword/input_ba-12        	    1214	    918983 ns/op	   61344 B/op	    5606 allocs/op
+BenchmarkBruteForcePassword/input_ba-12        	     844	   1286306 ns/op	   61344 B/op	    5606 allocs/op
+BenchmarkBruteForcePassword/input_cf-12        	     384	   3235021 ns/op	  166406 B/op	   15207 allocs/op
+BenchmarkBruteForcePassword/input_cf-12        	     414	   3001456 ns/op	  166406 B/op	   15207 allocs/op
+BenchmarkBruteForcePassword/input_cf-12        	     502	   2799046 ns/op	  166401 B/op	   15207 allocs/op
+BenchmarkBruteForcePassword/input_cf-12        	     474	   3038944 ns/op	  166402 B/op	   15207 allocs/op
+BenchmarkBruteForcePassword/input_cf-12        	     484	   2990334 ns/op	  166402 B/op	   15207 allocs/op
+PASS
+ok  	github.com/zhayt/pprof	27.929s
